@@ -86,7 +86,7 @@ PONT inserir(PONT raiz, int valor)
     // COMPLETADO
     // Se raiz == NULL => cria nó
     if (raiz == NULL)
-        criarNo(valor);
+        return criarNo(valor);
 
     // Se valor < raiz->chave => raiz->esq = inserir(raiz->esq, valor)
     if (valor < raiz->chave)
@@ -143,13 +143,15 @@ void exibirInOrder(PONT raiz)
 {
     // COMPLETAR
     // Percurso InOrder: esq -> (raiz->chave impresso contador vezes) -> dir
-    if (raiz == NULL) return;
+    if (raiz == NULL)
+        return;
 
-    exibirArvoreEmOrdem(raiz->esq);
-    for (int i = 0; i < raiz->contador; i++) {
+    exibirInOrder(raiz->esq);
+    for (int i = 0; i < raiz->contador; i++)
+    {
         printf("%d ", raiz->chave);
     }
-    exibirArvoreEmOrdem(raiz->dir);
+    exibirInOrder(raiz->dir);
 }
 
 //------------------------------------------------------------------------------
@@ -158,7 +160,8 @@ int contarNos(PONT raiz)
 {
     // COMPLETAR
     // Se raiz==NULL => 0
-    if (raiz == NULL) {
+    if (raiz == NULL)
+    {
         return 0;
     }
 
@@ -172,11 +175,12 @@ int contarTotalElementos(PONT raiz)
 {
     // COMPLETAR
     // soma = raiz->contador + subárvores
-    if (raiz == NULL) {
+    if (raiz == NULL)
+    {
         return 0;
     }
-    
-    return raiz->contador + contarTotalElementos(raiz->esq) + contarTotalElementos(raiz->dir); //subarvores
+
+    return raiz->contador + contarTotalElementos(raiz->esq) + contarTotalElementos(raiz->dir); // subarvores
 }
 
 //------------------------------------------------------------------------------
@@ -202,6 +206,17 @@ void imprimirIntervalo(PONT raiz, int min, int max)
 PONT lowestCommonAncestor(PONT raiz, int val1, int val2)
 {
     // COMPLETAR
+    // Retorna o nó que é o ancestral comum mais próximo das chaves val1 e val2.
+
+    // • Usando a propriedade da BST:
+    // – Se val1 < raiz− > chave e val2 < raiz− > chave, o LCA está na
+    // subárvore esquerda.
+    // – Se val1 > raiz− > chave e val2 > raiz− > chave, o LCA está na
+    // subárvore direita.
+    // – Caso contrário, raiz é o LCA (presumindo que val1 e val2 existam).
+    // • Se não houver ambas as chaves na árvore, a função pode retornar NULL
+    // ou algo similar.
+
     return NULL;
 }
 
