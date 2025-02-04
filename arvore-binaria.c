@@ -107,22 +107,47 @@ PONT inserir(PONT raiz, int valor)
 // 5) Remover UMA ocorrência
 PONT removerUmaOcorrencia(PONT raiz, int valor)
 {
+    if (raiz == NULL)
+        return NULL;
+
     // COMPLETAR
     // 1) Buscar nó do valor:
     //    - se não achar, não faz nada
-    PONT raizBuscada = buscar(raiz, valor);
-
-    if (raizBuscada != NULL)
+    if (valor < raiz->chave)
+        raiz->esq = removerUmaOcorrencia(raiz->esq, valor);
+    else if (valor > raiz->chave)
+        raiz->dir = removerUmaOcorrencia(raiz->dir, valor);
+    else
     {
-        // 2) se achar e contador>1 => decrementa
-        if (raizBuscada->contador > 1)
-            raizBuscada->contador--;
-        // 3) se contador==1 => remoção clássica de BST (casos 0,1,2 filhos)
-        else if (raizBuscada->contador == 1)
+        if (raiz->contador > 1)
         {
+            raiz->contador--; // 2) se achar e contador>1 => decrementa
+        }
+        else
+        {
+            // 3) se contador==1 => remoção clássica de BST (casos 0,1,2 filhos)
+            if (raiz->esq == NULL)
+            {
+                PONT temp = raiz->dir;
+                free(raiz);
+                return temp;
+            }
+            else if (raiz->dir == NULL)
+            {
+                PONT temp = raiz->esq;
+                free(raiz);
+                return temp;
+            }
+
+            PONT temp = raiz->dir;
+            while (temp->esq != NULL)
+                temp = temp->esq;
+
+            raiz->chave = temp->chave;
+            raiz->contador = temp->contador;
+            raiz->dir = removerTodasOcorrencias(raiz->dir, temp->chave);
         }
     }
-
     return raiz;
 }
 
@@ -130,11 +155,40 @@ PONT removerUmaOcorrencia(PONT raiz, int valor)
 // 6) Remover TODAS ocorrências
 PONT removerTodasOcorrencias(PONT raiz, int valor)
 {
+    if (raiz == NULL)
+        return NULL;
     // COMPLETAR
     // 1) Buscar nó do valor
     //    - se não achar, não faz nada
-    // 2) se achar => remove nó da BST (casos 0,1,2 filhos)
-    return raiz; // provisório
+    if (valor < raiz->chave)
+        raiz->esq = removerTodasOcorrencias(raiz->esq, valor);
+    else if (valor > raiz->chave)
+        raiz->dir = removerTodasOcorrencias(raiz->dir, valor);
+    else
+    {
+        if (raiz->esq == NULL)
+        {
+            PONT temp = raiz->dir;
+            free(raiz);
+            return temp;
+        }
+        else if (raiz->dir == NULL)
+        {
+            PONT temp = raiz->esq;
+            free(raiz);
+            return temp;
+        }
+
+        // 2) se achar => remove nó da BST (casos 0,1,2 filhos)
+        PONT temp = raiz->dir;
+        while (temp->esq != NULL)
+            temp = temp->esq;
+
+        raiz->chave = temp->chave;
+        raiz->contador = temp->contador;
+        raiz->dir = removerTodasOcorrencias(raiz->dir, temp->chave);
+    }
+    return raiz;
 }
 
 //------------------------------------------------------------------------------
