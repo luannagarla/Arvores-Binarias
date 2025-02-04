@@ -62,18 +62,21 @@ PONT buscar(PONT raiz, int valor)
 {
     // COMPLETAR
     // Retorna ponteiro para nó com chave == valor ou NULL se não existir.
-    if (raiz == NULL || raiz->chave == valor)
-        return raiz;
+    if (raiz == NULL)
+        return NULL;
+        
     // Usar a lógica de BST:
     //  - se valor < raiz->chave => buscar à esquerda
     //  - se valor > raiz->chave => buscar à direita
     //  - se valor == raiz->chave => retorna raiz
-    if (valor < raiz->chave)
+    if (raiz->chave == valor)
+        return raiz;
+    else if (valor < raiz->chave)
         return buscar(raiz->esq, valor);
     else
         return buscar(raiz->dir, valor);
 
-    return NULL; // provisório
+    return NULL;
 }
 
 //------------------------------------------------------------------------------
