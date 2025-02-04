@@ -158,8 +158,12 @@ int contarNos(PONT raiz)
 {
     // COMPLETAR
     // Se raiz==NULL => 0
+    if (raiz == NULL) {
+        return 0;
+    }
+
     // Senao => 1 + contarNos(esq) + contarNos(dir)
-    return 0; // provisório
+    return 1 + contarNos(raiz->esq) + contarNos(raiz->dir);
 }
 
 //------------------------------------------------------------------------------
