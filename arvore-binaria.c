@@ -64,7 +64,7 @@ PONT buscar(PONT raiz, int valor)
     // Retorna ponteiro para nó com chave == valor ou NULL se não existir.
     if (raiz == NULL)
         return NULL;
-        
+
     // Usar a lógica de BST:
     //  - se valor < raiz->chave => buscar à esquerda
     //  - se valor > raiz->chave => buscar à direita
@@ -100,7 +100,7 @@ PONT inserir(PONT raiz, int valor)
     if (valor == raiz->chave)
         raiz->contador++;
 
-    return raiz; // provisório
+    return raiz;
 }
 
 //------------------------------------------------------------------------------
@@ -110,9 +110,20 @@ PONT removerUmaOcorrencia(PONT raiz, int valor)
     // COMPLETAR
     // 1) Buscar nó do valor:
     //    - se não achar, não faz nada
-    // 2) se achar e contador>1 => decrementa
-    // 3) se contador==1 => remoção clássica de BST (casos 0,1,2 filhos)
-    return raiz; // provisório
+    PONT raizBuscada = buscar(raiz, valor);
+
+    if (raizBuscada != NULL)
+    {
+        // 2) se achar e contador>1 => decrementa
+        if (raizBuscada->contador > 1)
+            raizBuscada->contador--;
+        // 3) se contador==1 => remoção clássica de BST (casos 0,1,2 filhos)
+        else if (raizBuscada->contador == 1)
+        {
+        }
+    }
+
+    return raiz;
 }
 
 //------------------------------------------------------------------------------
@@ -132,6 +143,13 @@ void exibirInOrder(PONT raiz)
 {
     // COMPLETAR
     // Percurso InOrder: esq -> (raiz->chave impresso contador vezes) -> dir
+    if (raiz == NULL) return;
+
+    exibirArvoreEmOrdem(raiz->esq);
+    for (int i = 0; i < raiz->contador; i++) {
+        printf("%d ", raiz->chave);
+    }
+    exibirArvoreEmOrdem(raiz->dir);
 }
 
 //------------------------------------------------------------------------------
