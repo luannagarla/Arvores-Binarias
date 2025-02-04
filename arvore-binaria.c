@@ -93,11 +93,11 @@ PONT inserir(PONT raiz, int valor)
         raiz->esq = inserir(raiz->esq, valor);
 
     // Se valor > raiz->chave => raiz->dir = inserir(raiz->dir, valor)
-    if (valor > raiz->chave)
+    else if (valor > raiz->chave)
         raiz->dir = inserir(raiz->dir, valor);
 
     // Se valor == raiz->chave => incrementa raiz->contador
-    if (valor == raiz->chave)
+    else if (valor == raiz->chave)
         raiz->contador++;
 
     return raiz;
@@ -254,13 +254,13 @@ int main()
     // InOrder final esperado (antes de quaisquer remoções):
     //     "5 5 5 10 10 15 18"
     //
-    inserir(raiz, 10);
-    inserir(raiz, 5);
-    inserir(raiz, 15);
-    inserir(raiz, 10); // repetido => contador(10)++
-    inserir(raiz, 5);  // repetido => contador(5)++
-    inserir(raiz, 5);  // repetido => contador(5)++
-    inserir(raiz, 18);
+    raiz = inserir(raiz, 10);
+    raiz = inserir(raiz, 5);
+    raiz = inserir(raiz, 15);
+    raiz = inserir(raiz, 10); // repetido => contador(10)++
+    raiz = inserir(raiz, 5);  // repetido => contador(5)++
+    raiz = inserir(raiz, 5);  // repetido => contador(5)++
+    raiz = inserir(raiz, 18);
 
     printf("\n--- APÓS INSERIR (10,5,15,10,5,5,18) ---\n");
     printf("InOrder esperado: 5 5 5 10 10 15 18\n");
@@ -365,9 +365,9 @@ int main()
     //              12(1) 18(1)
     //                  \
     //                  16(1)
-    inserir(raiz, 12);
-    inserir(raiz, 16);
-    inserir(raiz, 3);
+    raiz = inserir(raiz, 12);
+    raiz = inserir(raiz, 16);
+    raiz = inserir(raiz, 3);
 
     printf("\n--- Árvore após inserir(12,16,3) ---\n");
     printf("InOrder esperado: 3 5 5 12 15 16 18\n");
