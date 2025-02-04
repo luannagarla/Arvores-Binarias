@@ -172,7 +172,11 @@ int contarTotalElementos(PONT raiz)
 {
     // COMPLETAR
     // soma = raiz->contador + subárvores
-    return 0; // provisório
+    if (raiz == NULL) {
+        return 0;
+    }
+    
+    return raiz->contador + contarTotalElementos(raiz->esq) + contarTotalElementos(raiz->dir); //subarvores
 }
 
 //------------------------------------------------------------------------------
