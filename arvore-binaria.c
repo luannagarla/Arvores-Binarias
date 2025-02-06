@@ -338,21 +338,23 @@ PONT lowestCommonAncestor(PONT raiz, int val1, int val2)
     return raiz;
 }
 
-void imprimirArvore(PONT raiz, int espaco)
-{
-    if (raiz == NULL)
-        return;
-
-    espaco += 5;
-
-    imprimirArvore(raiz->dir, espaco);
-
-    printf("\n");
-    for (int i = 5; i < espaco; i++)
-        printf(" ");
-    printf("%d\n", raiz->chave);
-
-    imprimirArvore(raiz->esq, espaco);
+//Código extra para meu melhor entendimento do comportamento das funções
+void imprimirArvore(PONT raiz) {
+    if (raiz != NULL) {
+        printf("%d", raiz->chave);
+        
+        if (raiz->esq != NULL || raiz->dir != NULL) {
+            printf("(");
+            if (raiz->esq != NULL) {
+                imprimirArvore(raiz->esq);
+            }
+            if (raiz->dir != NULL) {
+                if (raiz->esq != NULL) printf(", ");  
+                imprimirArvore(raiz->dir);
+            }
+            printf(")");
+        }
+    }
 }
 
 //------------------------------------------------------------------------------
@@ -530,8 +532,9 @@ int main()
     }
 
     printf("\n--- Estrutura da Árvore ---\n");
-    imprimirArvore(raiz, 0);
-    printf("\n--- FIM DOS TESTES ---\n");
+    imprimirArvore(raiz);
+
+    printf("\n\n--- FIM DOS TESTES ---\n");
 
     return 0;
 }
