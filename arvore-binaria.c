@@ -243,21 +243,26 @@ int kEsimoMenor(PONT raiz, int k)
 {
     // COMPLETAR
     // Deve considerar o contador de cada nó
-    
-    if (raiz == NULL) return -1; // Retorne -1 se não existir
+
+    if (raiz == NULL)
+        return -1; // Retorne -1 se não existir
 
     int totalEsquerda = 0;
-    if (raiz->esq != NULL) {
+    if (raiz->esq != NULL)
+    {
         totalEsquerda = contarTotalElementos(raiz->esq);
     }
 
-    if (k <= totalEsquerda) {
+    if (k <= totalEsquerda)
+    {
         return kEsimoMenor(raiz->esq, k);
     }
-    else if (k > totalEsquerda + raiz->contador) {
+    else if (k > totalEsquerda + raiz->contador)
+    {
         return kEsimoMenor(raiz->dir, k - (totalEsquerda + raiz->contador));
     }
-    else {
+    else
+    {
         return raiz->chave;
     }
 
@@ -269,21 +274,25 @@ int kEsimoMenor(PONT raiz, int k)
 void imprimirIntervalo(PONT raiz, int min, int max)
 {
     // COMPLETAR
-    
-    if (raiz == NULL) return; 
+    if (raiz == NULL)
+        return;
 
-    if (raiz->chave > min) {
+    if (raiz->chave > min)
+    {
         imprimirIntervalo(raiz->esq, min, max);
     }
 
     // Imprimir todos (com contadores) que estejam no intervalo [min, max]
-    if (raiz->chave >= min && raiz->chave <= max) {
-        for (int i = 0; i < raiz->contador; i++) {
+    if (raiz->chave >= min && raiz->chave <= max)
+    {
+        for (int i = 0; i < raiz->contador; i++)
+        {
             printf("%d ", raiz->chave);
         }
     }
 
-    if (raiz->chave < max) {
+    if (raiz->chave < max)
+    {
         imprimirIntervalo(raiz->dir, min, max);
     }
 }
@@ -295,16 +304,52 @@ PONT lowestCommonAncestor(PONT raiz, int val1, int val2)
     // COMPLETAR
     // Retorna o nó que é o ancestral comum mais próximo das chaves val1 e val2.
 
+    // • Se não houver ambas as chaves na árvore, a função pode retornar NULL
+    // ou algo similar.
+    if (buscar(raiz, val1) == NULL || buscar(raiz, val2) == NULL)
+    {
+        return NULL;
+    }
+
     // • Usando a propriedade da BST:
     // – Se val1 < raiz− > chave e val2 < raiz− > chave, o LCA está na
     // subárvore esquerda.
+    if (val1 < raiz->chave && val2 < raiz->chave)
+    {
+        return lowestCommonAncestor(raiz->esq, val1, val2);
+    }
+
     // – Se val1 > raiz− > chave e val2 > raiz− > chave, o LCA está na
     // subárvore direita.
-    // – Caso contrário, raiz é o LCA (presumindo que val1 e val2 existam).
-    // • Se não houver ambas as chaves na árvore, a função pode retornar NULL
-    // ou algo similar.
+    if (val1 > raiz->chave && val2 > raiz->chave)
+    {
+        return lowestCommonAncestor(raiz->dir, val1, val2);
+    }
 
-    return NULL;
+    if (raiz->chave == val1 || raiz->chave == val2)
+    {
+        return raiz;
+    }
+
+    // – Caso contrário, raiz é o LCA (presumindo que val1 e val2 existam).
+    return raiz;
+}
+
+void imprimirArvore(PONT raiz, int espaco)
+{
+    if (raiz == NULL)
+        return;
+
+    espaco += 5;
+
+    imprimirArvore(raiz->dir, espaco);
+
+    printf("\n");
+    for (int i = 5; i < espaco; i++)
+        printf(" ");
+    printf("%d\n", raiz->chave);
+
+    imprimirArvore(raiz->esq, espaco);
 }
 
 //------------------------------------------------------------------------------
@@ -481,6 +526,8 @@ int main()
         printf("LCA(100,3) => NULL (esperado=chave nao existe)\n");
     }
 
+    printf("\n--- Estrutura da Árvore ---\n");
+    imprimirArvore(raiz, 0);
     printf("\n--- FIM DOS TESTES ---\n");
 
     return 0;
