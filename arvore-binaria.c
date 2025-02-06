@@ -243,8 +243,25 @@ int kEsimoMenor(PONT raiz, int k)
 {
     // COMPLETAR
     // Deve considerar o contador de cada nó
-    // Retorne -1 se não existir
-    return -1; // provisório
+    
+    if (raiz == NULL) return -1; // Retorne -1 se não existir
+
+    int totalEsquerda = 0;
+    if (raiz->esq != NULL) {
+        totalEsquerda = contarTotalElementos(raiz->esq);
+    }
+
+    if (k <= totalEsquerda) {
+        return kEsimoMenor(raiz->esq, k);
+    }
+    else if (k > totalEsquerda + raiz->contador) {
+        return kEsimoMenor(raiz->dir, k - (totalEsquerda + raiz->contador));
+    }
+    else {
+        return raiz->chave;
+    }
+
+    return -1; // Retorne -1 se não existir
 }
 
 //------------------------------------------------------------------------------
@@ -278,36 +295,9 @@ PONT lowestCommonAncestor(PONT raiz, int val1, int val2)
 // main() para testes com expectativas de resultado
 int main()
 {
-    // PONT raiz;                    // ponteiro para a raiz da BST
-    // inicializar(&raiz);           // deixa a árvore vazia
-    //
-    // As funções a serem implementadas:
-    //   - criarNo
-    //   - inserir
-    //   - removerUmaOcorrencia
-    //   - removerTodasOcorrencias
-    //   - buscar
-    //   - exibirInOrder
-    //   - contarNos
-    //   - contarTotalElementos
-    //   - kEsimoMenor
-    //   - imprimirIntervalo
-    //   - lowestCommonAncestor
-
     PONT raiz;
     inicializar(&raiz);
 
-    // -------------------------------------------------------
-    // 1) Inserção com valores repetidos
-    //    Esperado que:
-    //      - nó 10 tenha contador=2
-    //      - nó 5  tenha contador=3
-    //      - nó 15 tenha contador=1
-    //      - nó 18 tenha contador=1
-    //
-    // InOrder final esperado (antes de quaisquer remoções):
-    //     "5 5 5 10 10 15 18"
-    //
     raiz = inserir(raiz, 10);
     raiz = inserir(raiz, 5);
     raiz = inserir(raiz, 15);
