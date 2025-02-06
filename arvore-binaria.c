@@ -60,7 +60,7 @@ PONT criarNo(int valor)
 // 3) Buscar
 PONT buscar(PONT raiz, int valor)
 {
-    // COMPLETAR
+    
     // Retorna ponteiro para nó com chave == valor ou NULL se não existir.
     if (raiz == NULL)
         return NULL;
@@ -110,7 +110,7 @@ PONT removerUmaOcorrencia(PONT raiz, int valor)
     if (raiz == NULL)
         return NULL;
 
-    // COMPLETAR
+    
     // 1) Buscar nó do valor:
     //    - se não achar, não faz nada
     if (valor < raiz->chave)
@@ -126,6 +126,7 @@ PONT removerUmaOcorrencia(PONT raiz, int valor)
         else
         {
             // 3) se contador==1 => remoção clássica de BST (casos 0,1,2 filhos)
+            // caso 0
             if (raiz->esq == NULL)
             {
                 PONT temp = raiz->dir;
@@ -139,6 +140,7 @@ PONT removerUmaOcorrencia(PONT raiz, int valor)
                 return temp;
             }
 
+            // caso 1,2
             PONT temp = raiz->dir;
             while (temp->esq != NULL)
                 temp = temp->esq;
@@ -157,7 +159,7 @@ PONT removerTodasOcorrencias(PONT raiz, int valor)
 {
     if (raiz == NULL)
         return NULL;
-    // COMPLETAR
+    
     // 1) Buscar nó do valor
     //    - se não achar, não faz nada
     if (valor < raiz->chave)
@@ -166,6 +168,8 @@ PONT removerTodasOcorrencias(PONT raiz, int valor)
         raiz->dir = removerTodasOcorrencias(raiz->dir, valor);
     else
     {
+        // 2) se achar => remove nó da BST (casos 0,1,2 filhos)
+        // caso 0
         if (raiz->esq == NULL)
         {
             PONT temp = raiz->dir;
@@ -179,7 +183,7 @@ PONT removerTodasOcorrencias(PONT raiz, int valor)
             return temp;
         }
 
-        // 2) se achar => remove nó da BST (casos 0,1,2 filhos)
+        // caso 1 e 2
         PONT temp = raiz->dir;
         while (temp->esq != NULL)
             temp = temp->esq;
@@ -195,7 +199,7 @@ PONT removerTodasOcorrencias(PONT raiz, int valor)
 // 7) Exibir InOrder
 void exibirInOrder(PONT raiz)
 {
-    // COMPLETAR
+    
     // Percurso InOrder: esq -> (raiz->chave impresso contador vezes) -> dir
     if (raiz == NULL)
         return;
@@ -212,7 +216,7 @@ void exibirInOrder(PONT raiz)
 // 8) Contar nós distintos
 int contarNos(PONT raiz)
 {
-    // COMPLETAR
+    
     // Se raiz==NULL => 0
     if (raiz == NULL)
     {
@@ -227,7 +231,7 @@ int contarNos(PONT raiz)
 // 9) Contar total de elementos (somando contadores)
 int contarTotalElementos(PONT raiz)
 {
-    // COMPLETAR
+    
     // soma = raiz->contador + subárvores
     if (raiz == NULL)
     {
@@ -241,7 +245,7 @@ int contarTotalElementos(PONT raiz)
 // 10) k-ésimo menor
 int kEsimoMenor(PONT raiz, int k)
 {
-    // COMPLETAR
+    
     // Deve considerar o contador de cada nó
 
     if (raiz == NULL)
@@ -273,7 +277,6 @@ int kEsimoMenor(PONT raiz, int k)
 // 11) Imprimir Intervalo [min, max]
 void imprimirIntervalo(PONT raiz, int min, int max)
 {
-    // COMPLETAR
     if (raiz == NULL)
         return;
 
@@ -301,7 +304,7 @@ void imprimirIntervalo(PONT raiz, int min, int max)
 
 PONT lowestCommonAncestor(PONT raiz, int val1, int val2)
 {
-    // COMPLETAR
+    
     // Retorna o nó que é o ancestral comum mais próximo das chaves val1 e val2.
 
     // • Se não houver ambas as chaves na árvore, a função pode retornar NULL
