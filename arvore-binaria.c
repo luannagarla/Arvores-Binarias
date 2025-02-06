@@ -269,7 +269,23 @@ int kEsimoMenor(PONT raiz, int k)
 void imprimirIntervalo(PONT raiz, int min, int max)
 {
     // COMPLETAR
+    
+    if (raiz == NULL) return; 
+
+    if (raiz->chave > min) {
+        imprimirIntervalo(raiz->esq, min, max);
+    }
+
     // Imprimir todos (com contadores) que estejam no intervalo [min, max]
+    if (raiz->chave >= min && raiz->chave <= max) {
+        for (int i = 0; i < raiz->contador; i++) {
+            printf("%d ", raiz->chave);
+        }
+    }
+
+    if (raiz->chave < max) {
+        imprimirIntervalo(raiz->dir, min, max);
+    }
 }
 
 //------------------------------------------------------------------------------
